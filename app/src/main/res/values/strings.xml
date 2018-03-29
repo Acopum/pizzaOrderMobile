@@ -5,5 +5,5 @@
     <string name="title_notifications">Notifications</string>
 
     <string name="notifications_fragment_title">Notifications Fragment</string>
-    <string name="home_fragment_title">Homepage</string>
+    <string name="home_fragment_title">Home Fragment</string>
 </resources>

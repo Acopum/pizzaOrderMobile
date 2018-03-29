@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,10 @@ public class NotificationFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private Context context;
+    private NotificationUtils notificationUtils;
+    private int notificationNum = 0;
+
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -54,10 +59,14 @@ public class NotificationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        /*if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        }*/
+
+        notificationUtils = new NotificationUtils(context);
+        NotificationCompat.Builder nBuilder = notificationUtils.buildNotification("Notification Title", "Hello World!");
+        notificationUtils.getManager().notify(69, nBuilder.build());
     }
 
     @Override
@@ -77,6 +86,8 @@ public class NotificationFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        this.context = context;
+
         /* was throwing improper error
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;

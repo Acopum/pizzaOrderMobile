@@ -65,8 +65,8 @@ public class NotificationFragment extends Fragment {
         }*/
 
         notificationUtils = new NotificationUtils(context);
-        NotificationCompat.Builder nBuilder = notificationUtils.buildNotification("Notification Title", "Hello World!");
-        notificationUtils.getManager().notify(69, nBuilder.build());
+        notificationUtils.buildNotification("Notification Title", "Hello World!");
+
     }
 
     @Override

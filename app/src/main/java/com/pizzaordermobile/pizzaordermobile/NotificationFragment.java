@@ -78,7 +78,7 @@ public class NotificationFragment extends Fragment {
         }*/
 
         notificationUtils = new NotificationUtils(context);
-        downloadJSON("http://192.168.0.195/pizzaOrderServerside/api/getNotifications.php");
+        downloadJSON("http://192.168.194.154/TestFiles/pizzaOrderServerside/api/getNotifications.php");
 
     }
 
@@ -131,23 +131,32 @@ public class NotificationFragment extends Fragment {
     }
 
     private void displayNotifications(String json) throws JSONException {
-        JSONArray jsonArray = new JSONArray(json);
-        String notificationTitle = "Title";
-        String notificationBody = "Body";
-        String[] notifications = new String[jsonArray.length()];
+        if (json != null) {
+            JSONArray jsonArray = new JSONArray(json);
 
-        // create the notifications to display to the user
-        for(int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            notificationTitle = jsonObject.getString("notification_type");
-            notificationBody = jsonObject.getString("messages");
-            notifications[i] = jsonObject.getString("notification_type") + ": " + jsonObject.getString("messages");
+            String notificationTitle = "Title";
+            String notificationBody = "Body";
+            String[] notifications = new String[jsonArray.length()];
 
-            notificationUtils.buildNotification(notificationTitle, notificationBody, i);
+            // create the notifications to display to the user
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                notificationTitle = jsonObject.getString("notification_type");
+                notificationBody = jsonObject.getString("messages");
+                notifications[i] = jsonObject.getString("notification_type") + ": " + jsonObject.getString("messages");
+
+                notificationUtils.buildNotification(notificationTitle, notificationBody, i);
+            }
+
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, notifications);
+            notificationDetail.setAdapter(arrayAdapter);
         }
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, notifications);
-        notificationDetail.setAdapter(arrayAdapter);
+        else {
+            String[] notifications = new String[1];
+            notifications[0] = "Error getting notifications";
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, notifications);
+            notificationDetail.setAdapter(arrayAdapter);
+        }
 
     }
 

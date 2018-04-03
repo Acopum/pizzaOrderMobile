@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
                     mTextMessage.setText(R.string.title_home);
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_orders:
+                    mTextMessage.setText(R.string.title_orders);
                     return true;
                 case R.id.navigation_notifications:
                     fragmentTransaction.replace(R.id.fragment_container, notificationFragment).commit();

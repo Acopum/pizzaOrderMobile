@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "45463680228",
+    "firebase_url": "https://pizzaordermobile.firebaseio.com",
+    "project_id": "pizzaordermobile",
+    "storage_bucket": "pizzaordermobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45463680228:android:086a9491d30ece4a",
+        "android_client_info": {
+          "package_name": "com.pizzaordermobile.pizzaordermobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "45463680228-845glude5f27otldplo6c7mjq9n80bll.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pizzaordermobile.pizzaordermobile",
+            "certificate_hash": "ce5f731596aeac120bbf99c71af931fafa029143"
+          }
+        },
+        {
+          "client_id": "45463680228-lbgrka6ctgu2b1e2o1klikuva81farki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkW_BQsjlbEsXfYXIC5ZGDZGxFvft1gHg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "45463680228-lbgrka6ctgu2b1e2o1klikuva81farki.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

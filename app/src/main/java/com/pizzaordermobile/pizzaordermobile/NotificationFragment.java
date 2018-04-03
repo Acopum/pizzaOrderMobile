@@ -2,12 +2,25 @@ package com.pizzaordermobile.pizzaordermobile;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 
 /**
@@ -63,9 +76,72 @@ public class NotificationFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }*/
-
         notificationUtils = new NotificationUtils(context);
-        notificationUtils.buildNotification("Notification Title", "Hello World!");
+        downloadJSON("http://192.168.0.195/pizzaOrderServerside/api/getNotifications.php");
+
+    }
+
+    // function to get the notifications
+    private void downloadJSON(final String urlWebService) {
+        class DownloadJSON extends AsyncTask<Void, Void, String> {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+
+                // display text popup to user
+                Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+
+                // try to create the notifications
+                try {
+                    displayNotifications(s);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                // function to get the json string from the server
+                try {
+                    // connect and retrieve json string containing notification data
+                    URL url = new URL(urlWebService);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    StringBuilder stringBuilder = new StringBuilder();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    String json;
+                    while ((json = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(json + "\n");
+                    }
+                    // return the json string
+                    return stringBuilder.toString().trim();
+                } catch (Exception e){
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
+        DownloadJSON getJSON = new DownloadJSON();
+        getJSON.execute();
+    }
+
+    private void displayNotifications(String json) throws JSONException {
+        JSONArray jsonArray = new JSONArray(json);
+        String notificationTitle = "Title";
+        String notificationBody = "Body";
+
+        // create the notifications to display to the user
+        for(int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            notificationTitle = jsonObject.getString("notification_type");
+            notificationBody = jsonObject.getString("messages");
+
+            notificationUtils.buildNotification(notificationTitle, notificationBody, i);
+        }
 
     }
 

@@ -37,7 +37,7 @@ public class NotificationUtils extends ContextWrapper {
 
     }
 
-    public boolean buildNotification(String title, String body) {
+    public boolean buildNotification(String title, String body, int id) {
         // build notification
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this, DEFAULT_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
@@ -48,7 +48,7 @@ public class NotificationUtils extends ContextWrapper {
                 ;
 
         // display notification
-        notificationManager.notify(69, nBuilder.build());
+        notificationManager.notify(id, nBuilder.build());
 
         return true;
 

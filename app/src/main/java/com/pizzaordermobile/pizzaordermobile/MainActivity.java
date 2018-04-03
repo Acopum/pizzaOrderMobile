@@ -28,16 +28,11 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     fragmentTransaction.replace(R.id.fragment_container, homeFragment).commit();
-
-                    mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_orders:
-                    mTextMessage.setText(R.string.title_orders);
                     return true;
                 case R.id.navigation_notifications:
                     fragmentTransaction.replace(R.id.fragment_container, notificationFragment).commit();
-
-                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
@@ -49,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 

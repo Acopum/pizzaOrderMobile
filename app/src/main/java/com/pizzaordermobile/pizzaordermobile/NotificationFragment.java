@@ -44,7 +44,7 @@ public class NotificationFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private Context context;
     private NotificationUtils notificationUtils;
-    private int notificationNum = 0;
+    private ListView notificationDetail;
 
 
     public NotificationFragment() {
@@ -76,6 +76,7 @@ public class NotificationFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }*/
+
         notificationUtils = new NotificationUtils(context);
         downloadJSON("http://192.168.0.195/pizzaOrderServerside/api/getNotifications.php");
 
@@ -133,23 +134,30 @@ public class NotificationFragment extends Fragment {
         JSONArray jsonArray = new JSONArray(json);
         String notificationTitle = "Title";
         String notificationBody = "Body";
+        String[] notifications = new String[jsonArray.length()];
 
         // create the notifications to display to the user
         for(int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             notificationTitle = jsonObject.getString("notification_type");
             notificationBody = jsonObject.getString("messages");
+            notifications[i] = jsonObject.getString("notification_type") + ": " + jsonObject.getString("messages");
 
             notificationUtils.buildNotification(notificationTitle, notificationBody, i);
         }
 
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, notifications);
+        notificationDetail.setAdapter(arrayAdapter);
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notifications, container, false);
+        View view = inflater.inflate(R.layout.fragment_notifications, container, false);
+        notificationDetail = (ListView) view.findViewById(R.id.notificationDetail);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

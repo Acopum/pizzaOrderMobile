@@ -5,8 +5,19 @@
     tools:context="com.pizzaordermobile.pizzaordermobile.NotificationFragment">
 
     <TextView
+        android:id="@+id/notificationsTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/notifications_fragment_title" />
+        android:text="@string/notifications_fragment_title"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/notificationDetail"
+        android:layout_width="match_parent"
+        android:layout_height="461dp"
+        android:paddingTop="40dp"
+        android:text="You have no notifications!" />
+
 
 </FrameLayout>

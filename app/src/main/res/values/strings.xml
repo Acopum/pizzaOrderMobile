@@ -4,6 +4,6 @@
     <string name="title_orders">Orders</string>
     <string name="title_notifications">Notifications</string>
 
-    <string name="notifications_fragment_title">Notifications Fragment</string>
-    <string name="home_fragment_title">Home Fragment</string>
+    <string name="notifications_fragment_title">Notifications</string>
+    <string name="home_fragment_title">Home</string>
 </resources>
